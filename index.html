@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="">
+            <h1 class="main_heading">Form</h1>
+            <p>Please fill the following Information</p>  
+            
+            <p>First Name <input type="text" placeholder="First Name" name="name"></p>
+        
+            <p>Last Name <input type="text" placeholder="Last Name" name="Lastname"></p>
+
+            <p>Email <input type="email" placeholder="Email" name="email" id="email"></p>
+        
+            <p>Password</p>
+            <lable for="pass">
+                <input type="password" name="pass" id="pass" 
+                required placeholder="Enter your password">  
+                <i class="fa fa-eye"></i>
+            </lable>
+
+            <lable for="cf-pass">
+                <input type="password" name="cf-pass" id="cf-pass" 
+                required placeholder="Confirm your password">
+                <i class="fa fa-eye"></i>
+            </lable>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+<!--Script-->
+    <script>
+        const pass = document.querySelector('#pass');
+        const cfPass = document.querySelector('#cf-pass');
+        const pAlert = document.querySelector('form p');
+        const btnRegister = document.querySelector('button');
+        const btnShow = document.querySelector('label i');
+
+        function check(){
+            let check = (pass.value < 6);
+            console.log(check);
+            btnRegister.disabled = check;
+            cfPass.disabled = check;
+            cfPass.value = '';
+            pAlert.className = 'alert'
+        }
+        check();
+        pass.addEventListener('keyup',check);
+
+        btnRegister.addEventListener('click', (e)=>{
+            e.preventDefault();
+            let txtErr = "Error! confirm Password Don't match";
+            let txtSuccess = "Ok! confirm Password matched";
+            let result = (pass.value === cfPass.value);
+            pAlert.textContent = result ? txtSuccess : txtErr;
+            pAlert.className = result ? 'alert success' : 'alert danger';
+        });
+
+        btnShow.forEch(item =>{
+            let show = false;
+            item.addEventListener('click', ()=>{
+                show = !show;
+                item.parentElement.children[0].setAttribute(
+                    'type',
+                    show ? 'text' : 'password'
+                );
+                item.parentElement.children[0].setAttribute(
+                    'class',
+                    show ? 'fa fa-eye-slash'  : 'fa fa-eye'
+                );
+            });
+        })
+</script>
+</html> 
